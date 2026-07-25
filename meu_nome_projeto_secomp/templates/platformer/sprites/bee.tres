@@ -1,0 +1,25 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://djtedsm2qfceh"]
+
+[ext_resource type="Texture2D" uid="uid://ownxkn2qwmur" path="res://assets/tilesheets/platfomer/platformer_tilesheet.png" id="1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eqnyg"]
+atlas = ExtResource("1")
+region = Rect2(16, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q03ib"]
+atlas = ExtResource("1")
+region = Rect2(32, 80, 16, 16)
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eqnyg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q03ib")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 10.0
+}]

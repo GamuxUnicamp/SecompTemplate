@@ -1,0 +1,30 @@
+[gd_scene format=3 uid="uid://dkfituhb81eua"]
+
+[ext_resource type="Script" uid="uid://k3thdjrg40tj" path="res://templates/platformer/scripts/enemy.gd" id="1_j4404"]
+[ext_resource type="SpriteFrames" uid="uid://djtedsm2qfceh" path="res://templates/platformer/sprites/bee.tres" id="2_j4404"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_v0ck0"]
+size = Vector2(6, 7)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qh0wq"]
+size = Vector2(10, 11)
+
+[node name="Bee" type="CharacterBody2D" unique_id=263916040]
+script = ExtResource("1_j4404")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1174652808]
+position = Vector2(0, 2.5)
+shape = SubResource("RectangleShape2D_v0ck0")
+
+[node name="Sprite" type="AnimatedSprite2D" parent="." unique_id=1567168761]
+texture_filter = 1
+sprite_frames = ExtResource("2_j4404")
+autoplay = "default"
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=602336663]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1207950014]
+position = Vector2(0, 1.5)
+shape = SubResource("RectangleShape2D_qh0wq")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
