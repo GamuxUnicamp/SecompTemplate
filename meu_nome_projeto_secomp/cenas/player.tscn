@@ -1,0 +1,232 @@
+[gd_scene format=3 uid="uid://mfshxwsea784"]
+
+[ext_resource type="Script" uid="uid://cxaf45g5ipvk6" path="res://codigos/player.gd" id="1_la8px"]
+[ext_resource type="Shader" uid="uid://c28r0u4hs8had" path="res://recursos/invuneravel.tres" id="2_25npi"]
+[ext_resource type="Texture2D" uid="uid://c74ap1gl33xpx" path="res://recursos/assets/Player.png" id="3_npq44"]
+[ext_resource type="Animation" uid="uid://c5ebvtm58p3eu" path="res://recursos/animacoes_jogador/RESET.res" id="4_yqsdx"]
+[ext_resource type="Animation" uid="uid://bcdp0ss47rxwj" path="res://recursos/animacoes_jogador/andando_para_direita.res" id="5_mnrdc"]
+[ext_resource type="Animation" uid="uid://dgkyopvxck6gf" path="res://recursos/animacoes_jogador/andando_para_esquerda.res" id="6_k60g6"]
+[ext_resource type="Animation" uid="uid://ckp0btvt36mlv" path="res://recursos/animacoes_jogador/andando_para_frente.res" id="7_038ka"]
+[ext_resource type="Animation" uid="uid://de8muaq4g0q1o" path="res://recursos/animacoes_jogador/andando_para_tras.res" id="8_pghs5"]
+[ext_resource type="Animation" uid="uid://da2pjywge1ah1" path="res://recursos/animacoes_jogador/atacar_atras.res" id="9_k6d0s"]
+[ext_resource type="Animation" uid="uid://w71pwhnayrnk" path="res://recursos/animacoes_jogador/atacar_direita.res" id="10_1dvmi"]
+[ext_resource type="Animation" uid="uid://p81syt5wsse5" path="res://recursos/animacoes_jogador/atacar_esquerda.res" id="11_1sut6"]
+[ext_resource type="Animation" uid="uid://jngfjdp6x814" path="res://recursos/animacoes_jogador/atacar_frente.res" id="12_83x2o"]
+[ext_resource type="Animation" uid="uid://iejb8o41uqo5" path="res://recursos/animacoes_jogador/morrer.res" id="13_32wjb"]
+[ext_resource type="Animation" uid="uid://fy0ffcl7xacj" path="res://recursos/animacoes_jogador/parado_atras.res" id="14_gl32n"]
+[ext_resource type="Animation" uid="uid://0nq7cn82fbu2" path="res://recursos/animacoes_jogador/parado_direita.res" id="15_ybfl8"]
+[ext_resource type="Animation" uid="uid://dri2u5lmorssp" path="res://recursos/animacoes_jogador/parado_esquerda.res" id="16_63w70"]
+[ext_resource type="Animation" uid="uid://d1bi0iysalsyw" path="res://recursos/animacoes_jogador/parado_frente.res" id="17_b88vo"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qmkxj"]
+shader = ExtResource("2_25npi")
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_qh0wq"]
+radius = 5.0
+height = 10.0
+
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_v8iwa"]
+b = Vector2(0, 0)
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_5k8gh"]
+_data = {
+&"RESET": ExtResource("4_yqsdx"),
+&"andando_para_direita": ExtResource("5_mnrdc"),
+&"andando_para_esquerda": ExtResource("6_k60g6"),
+&"andando_para_frente": ExtResource("7_038ka"),
+&"andando_para_tras": ExtResource("8_pghs5"),
+&"atacar_atras": ExtResource("9_k6d0s"),
+&"atacar_direita": ExtResource("10_1dvmi"),
+&"atacar_esquerda": ExtResource("11_1sut6"),
+&"atacar_frente": ExtResource("12_83x2o"),
+&"morrer": ExtResource("13_32wjb"),
+&"parado_atras": ExtResource("14_gl32n"),
+&"parado_direita": ExtResource("15_ybfl8"),
+&"parado_esquerda": ExtResource("16_63w70"),
+&"parado_frente": ExtResource("17_b88vo")
+}
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_3wfdl"]
+animation = &"andando_para_esquerda"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_q3ykc"]
+animation = &"andando_para_frente"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_aptb3"]
+animation = &"andando_para_tras"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_ml6to"]
+animation = &"andando_para_direita"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_ekgkx"]
+blend_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_3wfdl")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_0/name = &"andando_para_esquerda"
+blend_point_1/node = SubResource("AnimationNodeAnimation_q3ykc")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_1/name = &"andando_para_frente"
+blend_point_2/node = SubResource("AnimationNodeAnimation_aptb3")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_2/name = &"andando_para_tras"
+blend_point_3/node = SubResource("AnimationNodeAnimation_ml6to")
+blend_point_3/pos = Vector2(1, 0)
+blend_point_3/name = &"andando_para_direita"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_gasgo"]
+animation = &"atacar_esquerda"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_jgv7f"]
+animation = &"atacar_direita"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ivgj"]
+animation = &"atacar_atras"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_6ajjk"]
+animation = &"atacar_frente"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_d3wmh"]
+blend_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_gasgo")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_0/name = &"atacar_esquerda"
+blend_point_1/node = SubResource("AnimationNodeAnimation_jgv7f")
+blend_point_1/pos = Vector2(1, 0)
+blend_point_1/name = &"atacar_direita"
+blend_point_2/node = SubResource("AnimationNodeAnimation_6ivgj")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_2/name = &"atacar_atras"
+blend_point_3/node = SubResource("AnimationNodeAnimation_6ajjk")
+blend_point_3/pos = Vector2(0, 1)
+blend_point_3/name = &"atacar_frente"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_77hpo"]
+animation = &"morrer"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_d3wmh"]
+animation = &"parado_esquerda"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_x7l08"]
+animation = &"parado_frente"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_angir"]
+animation = &"parado_atras"
+
+[sub_resource type="AnimationNodeAnimation" id="AnimationNodeAnimation_y143f"]
+animation = &"parado_direita"
+
+[sub_resource type="AnimationNodeBlendSpace2D" id="AnimationNodeBlendSpace2D_6ajjk"]
+blend_mode = 1
+blend_point_0/node = SubResource("AnimationNodeAnimation_d3wmh")
+blend_point_0/pos = Vector2(-1, 0)
+blend_point_0/name = &"parado_esquerda"
+blend_point_1/node = SubResource("AnimationNodeAnimation_x7l08")
+blend_point_1/pos = Vector2(0, 1)
+blend_point_1/name = &"parado_frente"
+blend_point_2/node = SubResource("AnimationNodeAnimation_angir")
+blend_point_2/pos = Vector2(0, -1)
+blend_point_2/name = &"parado_atras"
+blend_point_3/node = SubResource("AnimationNodeAnimation_y143f")
+blend_point_3/pos = Vector2(1, 0)
+blend_point_3/name = &"parado_direita"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_ftdth"]
+advance_mode = 2
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0b10w"]
+advance_mode = 2
+advance_condition = &"esta_atacando"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_xav4x"]
+advance_mode = 2
+advance_condition = &"esta_andando"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_i5sgy"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"esta_parado"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_tf82j"]
+advance_mode = 2
+advance_condition = &"esta_parado"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_r46ks"]
+advance_mode = 2
+advance_condition = &"esta_atacando"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_vdu4q"]
+switch_mode = 2
+advance_mode = 2
+advance_condition = &"esta_andando"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_pqbu1"]
+advance_mode = 2
+advance_condition = &"esta_morto"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_0ic6e"]
+advance_mode = 2
+advance_condition = &"esta_morto"
+
+[sub_resource type="AnimationNodeStateMachineTransition" id="AnimationNodeStateMachineTransition_28wdh"]
+advance_mode = 2
+advance_condition = &"esta_morto"
+
+[sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tf82j"]
+states/End/position = Vector2(835, 106)
+states/Start/position = Vector2(124, 106)
+states/andando/node = SubResource("AnimationNodeBlendSpace2D_ekgkx")
+states/andando/position = Vector2(510, 176)
+states/atacando/node = SubResource("AnimationNodeBlendSpace2D_d3wmh")
+states/atacando/position = Vector2(510, 17)
+states/morrendo/node = SubResource("AnimationNodeAnimation_77hpo")
+states/morrendo/position = Vector2(672, 106)
+states/parado/node = SubResource("AnimationNodeBlendSpace2D_6ajjk")
+states/parado/position = Vector2(354, 106)
+transitions = ["Start", "parado", SubResource("AnimationNodeStateMachineTransition_ftdth"), "parado", "atacando", SubResource("AnimationNodeStateMachineTransition_0b10w"), "parado", "andando", SubResource("AnimationNodeStateMachineTransition_xav4x"), "atacando", "parado", SubResource("AnimationNodeStateMachineTransition_i5sgy"), "andando", "parado", SubResource("AnimationNodeStateMachineTransition_tf82j"), "andando", "atacando", SubResource("AnimationNodeStateMachineTransition_r46ks"), "atacando", "andando", SubResource("AnimationNodeStateMachineTransition_vdu4q"), "atacando", "morrendo", SubResource("AnimationNodeStateMachineTransition_pqbu1"), "andando", "morrendo", SubResource("AnimationNodeStateMachineTransition_0ic6e"), "parado", "morrendo", SubResource("AnimationNodeStateMachineTransition_28wdh")]
+
+[node name="Player" type="CharacterBody2D" unique_id=854229038 groups=["jogador"]]
+script = ExtResource("1_la8px")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=65259862]
+texture_filter = 1
+material = SubResource("ShaderMaterial_qmkxj")
+position = Vector2(0, -3)
+texture = ExtResource("3_npq44")
+hframes = 6
+vframes = 13
+
+[node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=321441781]
+shape = SubResource("CapsuleShape2D_qh0wq")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1768151272]
+zoom = Vector2(3, 3)
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=1170458924]
+collision_layer = 0
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1361019341]
+shape = SubResource("SegmentShape2D_v8iwa")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=247385408]
+libraries/ = SubResource("AnimationLibrary_5k8gh")
+
+[node name="AnimationTree" type="AnimationTree" parent="." unique_id=459885621]
+tree_root = SubResource("AnimationNodeStateMachine_tf82j")
+anim_player = NodePath("../AnimationPlayer")
+parameters/conditions/esta_andando = false
+parameters/conditions/esta_atacando = false
+parameters/conditions/esta_morto = false
+parameters/conditions/esta_parado = false
+parameters/andando/blend_position = Vector2(0, 0)
+parameters/atacando/blend_position = Vector2(0, 0)
+parameters/parado/blend_position = Vector2(0, 0)
+
+[node name="Cooldown" type="Timer" parent="." unique_id=507706821]
+wait_time = 0.8
+
+[node name="Invuneravel" type="Timer" parent="." unique_id=1048504136]
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
+[connection signal="timeout" from="Invuneravel" to="." method="_on_invuneravel_timeout"]

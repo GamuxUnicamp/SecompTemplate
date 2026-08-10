@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://4i60dn6n0h65"]
 
 [ext_resource type="Script" uid="uid://b1fb7gdpexf2o" path="res://templates/platformer/scripts/player.gd" id="1_e7wmq"]
-[ext_resource type="SpriteFrames" uid="uid://p44pjcr5rjku" path="res://templates/platformer/sprites/player.tres" id="2_8gq2o"]
+[ext_resource type="SpriteFrames" uid="uid://p44pjcr5rjku" path="res://templates/platformer/resources/player.tres" id="2_8gq2o"]
 [ext_resource type="PackedScene" uid="uid://cpl0v2dcw32pf" path="res://templates/platformer/scenes/projectile.tscn" id="2_p6fo2"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qh0wq"]

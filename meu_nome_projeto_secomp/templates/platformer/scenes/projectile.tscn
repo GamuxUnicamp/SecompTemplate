@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://cpl0v2dcw32pf"]
 
-[ext_resource type="SpriteFrames" uid="uid://dwqm0vrawuxts" path="res://templates/platformer/sprites/projectile.tres" id="1_l81aw"]
+[ext_resource type="SpriteFrames" uid="uid://dwqm0vrawuxts" path="res://templates/platformer/resources/projectile.tres" id="1_l81aw"]
 [ext_resource type="Script" uid="uid://brtadnqjgwlk1" path="res://templates/platformer/scripts/projectile.gd" id="1_y1b8v"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qh0wq"]

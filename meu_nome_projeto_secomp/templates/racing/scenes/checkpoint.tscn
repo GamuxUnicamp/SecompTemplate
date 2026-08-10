@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://cr5hueiwh0axd"]
+
+[ext_resource type="Script" uid="uid://x60b3k03pbxx" path="res://templates/racing/scripts/checkpoint.gd" id="1_ce1ph"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qh0wq"]
+radius = 150.0
+
+[node name="Area2D" type="Area2D" unique_id=2081939360]
+script = ExtResource("1_ce1ph")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=908187537]
+shape = SubResource("CircleShape2D_qh0wq")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

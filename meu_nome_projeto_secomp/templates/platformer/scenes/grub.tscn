@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://b0eki2s2rv2pr"]
 
 [ext_resource type="Script" uid="uid://k3thdjrg40tj" path="res://templates/platformer/scripts/enemy.gd" id="1_xrn25"]
-[ext_resource type="SpriteFrames" uid="uid://c6y1hjcnmb0ba" path="res://templates/platformer/sprites/grub.tres" id="2_xrn25"]
+[ext_resource type="SpriteFrames" uid="uid://c6y1hjcnmb0ba" path="res://templates/platformer/resources/grub.tres" id="2_xrn25"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_v0ck0"]
 size = Vector2(10, 8)
