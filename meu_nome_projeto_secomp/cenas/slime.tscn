@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://biwwgxgr2qoik"]
 
 [ext_resource type="Script" uid="uid://bmwovsu5xdn3l" path="res://codigos/slime.gd" id="1_q0si0"]
-[ext_resource type="Shader" uid="uid://c28r0u4hs8had" path="res://recursos/invuneravel.tres" id="2_avro0"]
+[ext_resource type="Shader" uid="uid://c28r0u4hs8had" path="res://recursos/shaders/invulneravel.tres" id="2_avro0"]
 [ext_resource type="Texture2D" uid="uid://ur5aa0c7xcfv" path="res://recursos/assets/Slime_Green.png" id="3_4tu1u"]
 [ext_resource type="Animation" uid="uid://cp8d3g1os0vlk" path="res://recursos/animacoes_slime/RESET.res" id="4_7tswi"]
 [ext_resource type="Animation" uid="uid://ctcqpddnv0nf" path="res://recursos/animacoes_slime/andando.res" id="5_bsw7v"]
@@ -64,6 +64,7 @@ states/morrendo/position = Vector2(595, 100)
 states/parado/node = SubResource("AnimationNodeAnimation_haynl")
 states/parado/position = Vector2(405, 42)
 transitions = ["Start", "parado", SubResource("AnimationNodeStateMachineTransition_p0new"), "parado", "andando", SubResource("AnimationNodeStateMachineTransition_tgjwu"), "andando", "parado", SubResource("AnimationNodeStateMachineTransition_nnguc"), "parado", "morrendo", SubResource("AnimationNodeStateMachineTransition_8c6pp"), "andando", "morrendo", SubResource("AnimationNodeStateMachineTransition_aksrh")]
+graph_offset = Vector2(-223.2224, 0)
 
 [node name="Slime" type="CharacterBody2D" unique_id=484894120 groups=["inimigo"]]
 script = ExtResource("1_q0si0")
@@ -93,7 +94,6 @@ path_desired_distance = 5.0
 target_desired_distance = 5.0
 path_postprocessing = 1
 avoidance_enabled = true
-debug_enabled = true
 debug_use_custom = true
 debug_path_custom_color = Color(0.7530178, 0, 0.0279142, 1)
 
@@ -107,14 +107,15 @@ parameters/conditions/esta_andando = false
 parameters/conditions/esta_morto = false
 parameters/conditions/esta_parado = false
 
-[node name="Invunerabilidade" type="Timer" parent="." unique_id=86819801]
+[node name="Invulneravel" type="Timer" parent="." unique_id=86819801]
+one_shot = true
 
 [node name="AtualizarCaminho" type="Timer" parent="." unique_id=1169513697]
 autostart = true
 
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="atingir"]
 [connection signal="body_entered" from="AreaDeDeteccao" to="." method="_on_detection_area_body_entered"]
 [connection signal="body_exited" from="AreaDeDeteccao" to="." method="_on_detection_area_body_exited"]
 [connection signal="animation_finished" from="AnimationTree" to="." method="_on_animation_tree_animation_finished"]
-[connection signal="timeout" from="Invunerabilidade" to="." method="_on_invunerabilidade_timeout"]
+[connection signal="timeout" from="Invulneravel" to="." method="_on_invulneravel_timeout"]
 [connection signal="timeout" from="AtualizarCaminho" to="." method="_on_atualizar_caminho_timeout"]

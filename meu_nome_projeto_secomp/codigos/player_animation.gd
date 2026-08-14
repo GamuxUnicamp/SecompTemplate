@@ -1,23 +1,13 @@
-#player final script
+#player animation script
 extends CharacterBody2D
 
-signal player_morreu
-signal atualizar_vida(vida_atual)
-signal atualizar_max_vida(nova_vida_maxima)
-
 @export var velocidade_padrao = 75.0
-@export var vida = 20
-@export var max_vida = 20
-@export var dano_ataque = 5
 @export var esta_morto = false
 @export var esta_atacando = false
 @export var esta_invulneravel = false
 
 var direcao = Vector2.ZERO
 var ultima_dir = Vector2.ZERO
-
-func _ready() -> void:
-	atualizar_max_vida.emit(max_vida)
 
 func _physics_process(delta: float) -> void:
 	if not esta_morto:
@@ -27,26 +17,11 @@ func _physics_process(delta: float) -> void:
 			$Cooldown.start(0.8)
 		if direcao != Vector2.ZERO:
 			ultima_dir = direcao
-		if not esta_invulneravel:
-			velocity = direcao * velocidade_padrao
+		velocity = direcao * velocidade_padrao
 		move_and_slide()
 	processar_animacoes()
 
-func receber_ataque(dano, direcao_da_repusao):
-	if not esta_invulneravel:
-		vida -= dano
-		atualizar_vida.emit(vida)
-		esta_invulneravel = true
-		$Invulneravel.start(0.1)
-		velocity = direcao_da_repusao * 100
-		if vida <= 0:
-			morrer()
 
-func morrer():
-	collision_layer = 0
-	esta_morto = true
-	player_morreu.emit()
-	
 func processar_animacoes():
 	$AnimationTree.set("parameters/parado/blend_position", ultima_dir)
 	$AnimationTree.set("parameters/andando/blend_position", ultima_dir)
@@ -59,12 +34,3 @@ func processar_animacoes():
 
 func _on_cooldown_timeout() -> void:
 	esta_atacando = false
-
-
-func atingir(corpo: Node2D) -> void:
-	if corpo != self and corpo.has_method("receber_ataque"):
-		var direcao_da_repulsao = global_position.direction_to(corpo.global_position)
-		corpo.receber_ataque(dano_ataque, direcao_da_repulsao)
-
-func _on_invulneravel_timeout() -> void:
-	esta_invulneravel = false

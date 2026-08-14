@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://mfshxwsea784"]
 
-[ext_resource type="Script" uid="uid://cxaf45g5ipvk6" path="res://codigos/player.gd" id="1_la8px"]
-[ext_resource type="Shader" uid="uid://c28r0u4hs8had" path="res://recursos/invuneravel.tres" id="2_25npi"]
+[ext_resource type="Script" uid="uid://dumam7o621s7y" path="res://codigos/player_animation.gd" id="1_uk4ck"]
+[ext_resource type="Shader" uid="uid://c28r0u4hs8had" path="res://recursos/shaders/invulneravel.tres" id="2_25npi"]
 [ext_resource type="Texture2D" uid="uid://c74ap1gl33xpx" path="res://recursos/assets/Player.png" id="3_npq44"]
 [ext_resource type="Animation" uid="uid://c5ebvtm58p3eu" path="res://recursos/animacoes_jogador/RESET.res" id="4_yqsdx"]
 [ext_resource type="Animation" uid="uid://bcdp0ss47rxwj" path="res://recursos/animacoes_jogador/andando_para_direita.res" id="5_mnrdc"]
@@ -172,8 +172,8 @@ advance_mode = 2
 advance_condition = &"esta_morto"
 
 [sub_resource type="AnimationNodeStateMachine" id="AnimationNodeStateMachine_tf82j"]
-states/End/position = Vector2(835, 106)
-states/Start/position = Vector2(124, 106)
+states/End/position = Vector2(781, 106)
+states/Start/position = Vector2(224, 106)
 states/andando/node = SubResource("AnimationNodeBlendSpace2D_ekgkx")
 states/andando/position = Vector2(510, 176)
 states/atacando/node = SubResource("AnimationNodeBlendSpace2D_d3wmh")
@@ -183,9 +183,10 @@ states/morrendo/position = Vector2(672, 106)
 states/parado/node = SubResource("AnimationNodeBlendSpace2D_6ajjk")
 states/parado/position = Vector2(354, 106)
 transitions = ["Start", "parado", SubResource("AnimationNodeStateMachineTransition_ftdth"), "parado", "atacando", SubResource("AnimationNodeStateMachineTransition_0b10w"), "parado", "andando", SubResource("AnimationNodeStateMachineTransition_xav4x"), "atacando", "parado", SubResource("AnimationNodeStateMachineTransition_i5sgy"), "andando", "parado", SubResource("AnimationNodeStateMachineTransition_tf82j"), "andando", "atacando", SubResource("AnimationNodeStateMachineTransition_r46ks"), "atacando", "andando", SubResource("AnimationNodeStateMachineTransition_vdu4q"), "atacando", "morrendo", SubResource("AnimationNodeStateMachineTransition_pqbu1"), "andando", "morrendo", SubResource("AnimationNodeStateMachineTransition_0ic6e"), "parado", "morrendo", SubResource("AnimationNodeStateMachineTransition_28wdh")]
+graph_offset = Vector2(-48.383415, -59.96214)
 
 [node name="Player" type="CharacterBody2D" unique_id=854229038 groups=["jogador"]]
-script = ExtResource("1_la8px")
+script = ExtResource("1_uk4ck")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=65259862]
 texture_filter = 1
@@ -198,15 +199,14 @@ vframes = 13
 [node name="Hurtbox" type="CollisionShape2D" parent="." unique_id=321441781]
 shape = SubResource("CapsuleShape2D_qh0wq")
 
-[node name="Camera2D" type="Camera2D" parent="." unique_id=1768151272]
-zoom = Vector2(3, 3)
-
 [node name="Hitbox" type="Area2D" parent="." unique_id=1170458924]
-collision_layer = 0
 collision_mask = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Hitbox" unique_id=1361019341]
 shape = SubResource("SegmentShape2D_v8iwa")
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1768151272]
+zoom = Vector2(3, 3)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=247385408]
 libraries/ = SubResource("AnimationLibrary_5k8gh")
@@ -224,9 +224,11 @@ parameters/parado/blend_position = Vector2(0, 0)
 
 [node name="Cooldown" type="Timer" parent="." unique_id=507706821]
 wait_time = 0.8
+one_shot = true
 
-[node name="Invuneravel" type="Timer" parent="." unique_id=1048504136]
+[node name="Invulneravel" type="Timer" parent="." unique_id=1048504136]
+one_shot = true
 
-[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]
+[connection signal="body_entered" from="Hitbox" to="." method="atingir"]
 [connection signal="timeout" from="Cooldown" to="." method="_on_cooldown_timeout"]
-[connection signal="timeout" from="Invuneravel" to="." method="_on_invuneravel_timeout"]
+[connection signal="timeout" from="Invulneravel" to="." method="_on_invulneravel_timeout"]

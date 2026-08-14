@@ -1,9 +1,5 @@
-#player final script
+#player combat script
 extends CharacterBody2D
-
-signal player_morreu
-signal atualizar_vida(vida_atual)
-signal atualizar_max_vida(nova_vida_maxima)
 
 @export var velocidade_padrao = 75.0
 @export var vida = 20
@@ -15,9 +11,6 @@ signal atualizar_max_vida(nova_vida_maxima)
 
 var direcao = Vector2.ZERO
 var ultima_dir = Vector2.ZERO
-
-func _ready() -> void:
-	atualizar_max_vida.emit(max_vida)
 
 func _physics_process(delta: float) -> void:
 	if not esta_morto:
@@ -35,7 +28,6 @@ func _physics_process(delta: float) -> void:
 func receber_ataque(dano, direcao_da_repusao):
 	if not esta_invulneravel:
 		vida -= dano
-		atualizar_vida.emit(vida)
 		esta_invulneravel = true
 		$Invulneravel.start(0.1)
 		velocity = direcao_da_repusao * 100
@@ -45,7 +37,6 @@ func receber_ataque(dano, direcao_da_repusao):
 func morrer():
 	collision_layer = 0
 	esta_morto = true
-	player_morreu.emit()
 	
 func processar_animacoes():
 	$AnimationTree.set("parameters/parado/blend_position", ultima_dir)

@@ -1,0 +1,29 @@
+[gd_resource type="VisualShader" format=3 uid="uid://c28r0u4hs8had"]
+
+[sub_resource type="VisualShaderNodeColorConstant" id="VisualShaderNodeColorConstant_6egvv"]
+
+[sub_resource type="VisualShaderNodeInput" id="VisualShaderNodeInput_maltt"]
+input_name = "color"
+
+[sub_resource type="VisualShaderNodeBooleanParameter" id="VisualShaderNodeBooleanParameter_7caas"]
+parameter_name = "esta_invulneravel"
+qualifier = 2
+default_value_enabled = true
+
+[sub_resource type="VisualShaderNodeIf" id="VisualShaderNodeIf_lwrva"]
+default_input_values = [0, 0.0, 1, 1.0, 2, 1e-05, 3, Vector3(0, 0, 0), 4, Vector3(0, 0, 0), 5, Vector3(1, 1, 1)]
+
+[resource]
+mode = 1
+flags/light_only = false
+nodes/vertex/0/position = Vector2(420, 40)
+nodes/fragment/0/position = Vector2(220, -100)
+nodes/fragment/6/node = SubResource("VisualShaderNodeInput_maltt")
+nodes/fragment/6/position = Vector2(-340, 120)
+nodes/fragment/8/node = SubResource("VisualShaderNodeBooleanParameter_7caas")
+nodes/fragment/8/position = Vector2(-360, -180)
+nodes/fragment/9/node = SubResource("VisualShaderNodeIf_lwrva")
+nodes/fragment/9/position = Vector2(20, -100)
+nodes/fragment/10/node = SubResource("VisualShaderNodeColorConstant_6egvv")
+nodes/fragment/10/position = Vector2(-200, 20)
+nodes/fragment/connections = PackedInt32Array(8, 0, 9, 0, 9, 0, 0, 0, 6, 0, 9, 5, 10, 0, 9, 3)

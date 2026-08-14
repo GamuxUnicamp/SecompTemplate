@@ -1,13 +1,12 @@
-#slime final script
+#slime animation script
 extends CharacterBody2D
 
-
 @export var velocidade_padrao = 50.0
-@export var vida = 20.0
-@export var dano_ataque = 5.0
+
 @export var esta_morto = false
 @export var esta_atacando = false
 @export var esta_invulneravel = false
+
 var alvo = null
 var direcao = Vector2.ZERO
 
@@ -16,26 +15,13 @@ func _physics_process(delta: float) -> void:
 		#Busca o proximo ponto do caminho até o alvo e aponta a direcao para lá.
 		direcao = global_position.direction_to($NavigationAgent2D.get_next_path_position())
 		
-		#Quando for atingido, a velocidade deve ser definida pela repusão, no restante dos casos move em direcao ao alvo.
+		#Quando for atingido, a velocidade deve ser definida pela repusão, 
+		#no restante dos casos move em direcao ao alvo.
 		if not esta_invulneravel: 
 			velocity = direcao * velocidade_padrao
 		
 		move_and_slide()
 	processar_animacoes()
-	
-func receber_ataque(dano, direcao_da_repusao):
-	if not esta_invulneravel:
-		vida -= dano
-		esta_invulneravel = true
-		$Invulneravel.start(0.1)
-		velocity = direcao_da_repusao * 100 #knockback
-		if vida <= 0:
-			morrer()
-			
-func morrer():
-	esta_morto = true
-	$Hitbox.collision_mask = 0
-	
 	
 func processar_animacoes():
 	$AnimationTree.set("parameters/conditions/esta_parado", direcao == Vector2.ZERO)
@@ -56,21 +42,9 @@ func _on_detection_area_body_exited(corpo: Node2D) -> void:
 	if corpo.is_in_group("jogador"):
 		alvo = null
 
-
-func atingir(corpo: Node2D) -> void:
-	if corpo != self and corpo.has_method("receber_ataque") and corpo.is_in_group("jogador"):
-		var direcao_de_repulsao = global_position.direction_to(corpo.global_position)
-		corpo.receber_ataque(dano_ataque, direcao_de_repulsao)
-		
-
 func _on_atualizar_caminho_timeout() -> void:
 		#Se tiver um alvo para atacar, traça a rota para a posicao do alvo, senao fica no lugar 
 		if alvo:
 			$NavigationAgent2D.target_position = alvo.global_position
 		else:
 			$NavigationAgent2D.target_position = self.global_position
-			
-
-
-func _on_invulneravel_timeout() -> void:
-	esta_invulneravel = false
