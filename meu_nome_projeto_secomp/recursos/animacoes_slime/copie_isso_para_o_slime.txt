@@ -1,0 +1,5 @@
+func processar_animacoes():
+	$AnimationTree.set("parameters/conditions/esta_parado", direcao == Vector2.ZERO)
+	$AnimationTree.set("parameters/conditions/esta_andando", direcao != Vector2.ZERO)
+	$AnimationTree.set("parameters/conditions/esta_morto", esta_morto)
+	$Sprite2D.set_instance_shader_parameter("esta_invulneravel", esta_invulneravel)

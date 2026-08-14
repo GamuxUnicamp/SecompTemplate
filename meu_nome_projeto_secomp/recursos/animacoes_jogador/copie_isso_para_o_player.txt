@@ -1,0 +1,9 @@
+func processar_animacoes():
+	$AnimationTree.set("parameters/parado/blend_position", ultima_dir)
+	$AnimationTree.set("parameters/andando/blend_position", ultima_dir)
+	$AnimationTree.set("parameters/atacando/blend_position", ultima_dir)
+	$AnimationTree.set("parameters/conditions/esta_parado", direcao == Vector2.ZERO)
+	$AnimationTree.set("parameters/conditions/esta_andando", direcao != Vector2.ZERO)
+	$AnimationTree.set("parameters/conditions/esta_morto", esta_morto)
+	$AnimationTree.set("parameters/conditions/esta_atacando", esta_atacando)
+	$Sprite2D.set_instance_shader_parameter("esta_invulneravel", esta_invulneravel)
